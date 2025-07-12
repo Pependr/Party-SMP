@@ -2,14 +2,70 @@ on:
   push:
     branches:
       - main
+
 jobs:
   setup_java:
     runs-on: ubuntu-latest
 
-    name: setup java 21
+    name: setup Java 21
     steps:
       - uses: actions/setup-java@v3.14.1
         with:
           java-version: '21'
           distribution: 'oracle'
           java-package: 'jdk'
+
+  setup_python:
+    runs-on: ubuntu-latest
+
+    name: setup Python 3
+    steps:
+      - uses: actions/setup-python@v5.6.0
+        with:
+          python-version: '3.11'
+
+  load_backup:
+    runs-on: ubuntu-latest
+
+    name: download world backup
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ date - 1 }}-nightly
+          path: ./world/*
+        if: ${{ env.CURRENT_TIME <= '15:05:00' }}
+ 
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ date }}-daily
+          path: ./world/*
+        if: ${{ env.CURRENT_TIME > '15:05:00' }}
+
+  start_server:
+    runs-on: ubuntu-latest
+
+    name: run server
+    steps:
+      - uses: actions/checkout@v4
+      - run: python app.py
+
+  upload_backup:
+    runs-on: ubuntu-latest
+
+    name: upload world backup
+    steps:
+      - uses: actions/checkout@v4
+        
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ date }}-daily
+          path: ./world/*
+        if: ${{ env.CURRENT_TIME <= '15:05:00' }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ date }}-nightly
+          path: ./world/*
+        if: ${{ env.CURRENT_TIME > '20:00:00' }}
