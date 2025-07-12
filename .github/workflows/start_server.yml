@@ -1,0 +1,15 @@
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  setup_java:
+    runs-on: ubuntu-latest
+
+    name: setup java 21
+    steps:
+      - uses: actions/setup-java@v3.14.1
+        with:
+          java-version: '21'
+          distribution: 'graalvm'
+          java-package: 'jdk'
