@@ -33,7 +33,7 @@ jobs:
       
       - uses: actions/download-artifact@v4
         with:
-          name: ${{ date - 1 }}-nightly
+          name: ${{ date }}-nightly
           path: ./world/*
         if: ${{ env.CURRENT_TIME <= '15:05:00' }}
  
@@ -43,7 +43,7 @@ jobs:
           path: ./world/*
         if: ${{ env.CURRENT_TIME > '15:05:00' }}
 
-  start_server:
+  run_server:
     runs-on: ubuntu-latest
 
     name: run server
