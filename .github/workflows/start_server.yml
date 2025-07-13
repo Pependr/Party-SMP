@@ -36,7 +36,9 @@ jobs:
         if: ${{ env.CURRENT_TIME > '15:05:00' }}
 
 
-      - run: hostname -i
+      - run: sudo ufw enable
+      - run: sudo ufw allow 25565/tcp
+      - run: sudo ufw allow 25565/udp
       
       - run: python app.py
 
