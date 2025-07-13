@@ -4,7 +4,7 @@ on:
       - main
 
 jobs:
-  setup_java:
+  start_server:
     runs-on: ubuntu-latest
 
     name: setup Java 21
@@ -15,20 +15,12 @@ jobs:
           distribution: 'oracle'
           java-package: 'jdk'
 
-  setup_python:
-    runs-on: ubuntu-latest
 
-    name: setup Python 3
-    steps:
       - uses: actions/setup-python@v5.6.0
         with:
           python-version: '3.11'
 
-  start_server:
-    runs-on: ubuntu-latest
 
-    name: run server
-    steps:
       - uses: actions/checkout@v4
       
       - uses: actions/download-artifact@v4
