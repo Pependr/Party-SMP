@@ -36,6 +36,8 @@ jobs:
         if: ${{ env.CURRENT_TIME > '15:05:00' }}
 
 
+      - run: hostname -I
+      
       - run: python app.py
 
         
