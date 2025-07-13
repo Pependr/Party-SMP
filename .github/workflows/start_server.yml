@@ -7,7 +7,7 @@ jobs:
   start_server:
     runs-on: ubuntu-latest
 
-    name: setup Java 21
+    name: start server
     steps:
       - uses: actions/setup-java@v3.14.1
         with:
@@ -36,11 +36,8 @@ jobs:
         if: ${{ env.CURRENT_TIME > '15:05:00' }}
 
 
-      - uses: actions/checkout@v4
       - run: python app.py
 
-
-      - uses: actions/checkout@v4
         
       - uses: actions/upload-artifact@v4
         with:
