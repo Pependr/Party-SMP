@@ -24,10 +24,10 @@ jobs:
         with:
           python-version: '3.11'
 
-  load_backup:
+  start_server:
     runs-on: ubuntu-latest
 
-    name: download world backup
+    name: run server
     steps:
       - uses: actions/checkout@v4
       
@@ -43,19 +43,11 @@ jobs:
           path: ./world/*
         if: ${{ env.CURRENT_TIME > '15:05:00' }}
 
-  run_server:
-    runs-on: ubuntu-latest
 
-    name: run server
-    steps:
       - uses: actions/checkout@v4
       - run: python app.py
 
-  upload_backup:
-    runs-on: ubuntu-latest
 
-    name: upload world backup
-    steps:
       - uses: actions/checkout@v4
         
       - uses: actions/upload-artifact@v4
