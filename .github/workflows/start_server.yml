@@ -35,12 +35,9 @@ jobs:
           path: ./world/*
         if: ${{ env.CURRENT_TIME > '15:05:00' }}
 
-      - run: hostname -i
-      - run: hostname -I
-      - run: ip addr show
+      - uses: haythem/public-ip@v1.3
       - run: sudo ufw enable
-      - run: sudo ufw allow 22069/tcp
-      - run: sudo ufw allow 22069/udp
+      - run: sudo ufw allow 22069
       
       - run: python app.py
 
