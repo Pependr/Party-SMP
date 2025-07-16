@@ -35,6 +35,8 @@ jobs:
           path: ./world/*
         if: ${{ env.CURRENT_TIME > '15:05:00' }}
 
+      - run: hostname -i
+      - run: hostname -I
       - run: ip addr show
       - run: sudo ufw enable
       - run: sudo ufw allow 22069/tcp
